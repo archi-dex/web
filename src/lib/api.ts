@@ -9,7 +9,7 @@ export interface ApiResponse<T> {
 }
 
 export interface Entity {
-  id: string;
+  _id: string;
   dir: string;
   base: string;
   attributes: Record<string, unknown>;
@@ -39,11 +39,15 @@ const readEntity = async (id: string) =>
 
 const updateEntity = async (entity: Entity) =>
   instance
-    .post<ApiResponse<Entity>>(`/api/entities/${entity.id}`, entity)
+    .post<ApiResponse<Entity>>(`/api/entities/${entity._id}`, entity)
     .then(({ data }) => data);
 
-const deleteEntity = async (id: string) =>
-  instance.delete<ApiResponse<null>>(`/api/entities/${id}`).then(() => null);
+const deleteEntity = async (id: string) => {
+  console.log("deleteEntity", id);
+  return instance
+    .delete<ApiResponse<null>>(`/api/entities/${id}`)
+    .then(() => null);
+};
 
 const listEntities = async () =>
   instance.get<ApiResponse<Entity[]>>("/api/entities").then(({ data }) => data);

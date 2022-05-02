@@ -13,6 +13,7 @@ import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 import { Drawer, DrawerSibling } from "./components/Drawer";
 import { Grow } from "./components/Grow";
+import { ThemeModeToggle } from "./components/inputs/ThemeModeToggle";
 import { useFacetsContext } from "./lib/contexts/FacetsContext";
 import { routes } from "./routes";
 
@@ -33,30 +34,35 @@ export const App = () => {
   return (
     <Grow>
       <Drawer variant="permanent" open={isDrawerOpen}>
-        <Stack spacing={0}>
-          <Box pl={1}>
-            <IconButton onClick={toggleDrawer}>
-              <ChevronRightIcon
-                sx={[isDrawerOpen && { transform: "rotate(180deg)" }]}
-              />
-            </IconButton>
+        <Stack justifyContent="space-between" height="100%">
+          <Stack spacing={0}>
+            <Box pl={1}>
+              <IconButton onClick={toggleDrawer}>
+                <ChevronRightIcon
+                  sx={[isDrawerOpen && { transform: "rotate(180deg)" }]}
+                />
+              </IconButton>
+            </Box>
+            <Divider />
+            <List>
+              {routes
+                .filter((route) => !route.hide)
+                .map((route) => (
+                  <ListItemButton
+                    key={route.path}
+                    component={Link}
+                    selected={pathname.includes(route.path)}
+                    to={route.path}
+                  >
+                    <ListItemIcon>{route.icon}</ListItemIcon>
+                    <ListItemText>{route.label}</ListItemText>
+                  </ListItemButton>
+                ))}
+            </List>
+          </Stack>
+          <Box p={1}>
+            <ThemeModeToggle />
           </Box>
-          <Divider />
-          <List>
-            {routes
-              .filter((route) => !route.hide)
-              .map((route) => (
-                <ListItemButton
-                  key={route.path}
-                  component={Link}
-                  selected={pathname.includes(route.path)}
-                  to={route.path}
-                >
-                  <ListItemIcon>{route.icon}</ListItemIcon>
-                  <ListItemText>{route.label}</ListItemText>
-                </ListItemButton>
-              ))}
-          </List>
         </Stack>
       </Drawer>
 

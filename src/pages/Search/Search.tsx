@@ -57,9 +57,10 @@ export const Search = () => {
             <SearchOffIcon fontSize="small" /> No results
           </Grow>
         ))
-        .with({ loading: false, entities: P.when((v) => v.length) }, () => (
-          <SearchResult />
-        ))
+        .with(
+          { loading: false, entities: P.when((v) => v.length) },
+          ({ entities }) => <SearchResult entities={entities} />
+        )
         .otherwise(() => (
           <Grow center>
             <QuestionMarkIcon fontSize="small" /> Unknown error occurred

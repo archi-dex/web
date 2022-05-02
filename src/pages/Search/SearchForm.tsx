@@ -88,6 +88,10 @@ export const SearchForm = ({ facets, onSearch }: FilterFormProps) => {
           <Button type="submit" variant="contained" startIcon={<SearchIcon />}>
             Search
           </Button>
+          <Button color="secondary">Foo</Button>
+          <Button variant="contained" color="secondary">
+            Bar
+          </Button>
         </Stack>
       </Stack>
     </form>

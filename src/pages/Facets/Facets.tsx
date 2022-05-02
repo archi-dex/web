@@ -24,9 +24,15 @@ export const Facets = () => {
   const openForm = () => setOpen(true);
   const closeForm = () => setOpen(false);
 
-  const handleDelete = (id: string) => async () => {
-    await api.deleteFacet(id);
-    refresh();
+  const handleDelete = async (id: string) => {
+    try {
+      await api.deleteFacet(id);
+      enqueue(`Deleted facet: "${id}"`);
+      refresh();
+    } catch (error) {
+      console.error(error);
+      enqueue(`Failed to delete facet: "${id}"`, "error");
+    }
   };
 
   const handleSubmit: CreateFacetDialogProps["onSubmit"] = async (facet) => {

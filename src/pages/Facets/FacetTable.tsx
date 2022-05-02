@@ -24,7 +24,7 @@ export const FacetTable = ({ facets, onDelete }: FacetTableProps) => {
           <TableCell>ID</TableCell>
           <TableCell>Key</TableCell>
           <TableCell>Sort</TableCell>
-          <TableCell align="right">Delete</TableCell>
+          {onDelete && <TableCell align="right">Delete</TableCell>}
         </TableRow>
       </TableHead>
       <TableBody>
@@ -35,11 +35,13 @@ export const FacetTable = ({ facets, onDelete }: FacetTableProps) => {
             <TableCell>
               <SortDirectionIcon direction={facet.sort} />
             </TableCell>
-            <TableCell align="right">
-              <IconButton onClick={handleDelete(facet.id)}>
-                <DeleteIcon />
-              </IconButton>
-            </TableCell>
+            {onDelete && (
+              <TableCell align="right">
+                <IconButton onClick={handleDelete(facet.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>
