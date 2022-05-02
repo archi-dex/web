@@ -1,0 +1,33 @@
+plugins:
+  - import
+  - "@typescript-eslint"
+extends:
+  - react-app
+  - react-app/jest
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+overrides:
+  - files:
+      - "**/*.stories.*"
+    rules:
+      import/no-anonymous-default-export: "off"
+rules:
+  no-unused-vars: off
+  "@typescript-eslint/no-unused-vars":
+    - warn
+    - argsIgnorePattern: "^_"
+  "@typescript-eslint/ban-types":
+    - warn
+    - extendDefaults: true
+      types:
+        "{}": false
+  import/order:
+    - warn
+    - newlines-between: always
+      alphabetize:
+        order: asc
+        caseInsensitive: true
+      pathGroups:
+        - pattern: ~/**
+          group: parent
+          position: before
